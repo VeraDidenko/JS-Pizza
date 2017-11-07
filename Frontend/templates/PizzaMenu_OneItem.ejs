@@ -12,30 +12,99 @@ function getIngredientsArray(pizza) {
         //a.concat(b) створює спільний масив із масивів a та b
         result = result.concat(content[key]);
     });
-
     return result;
 }
 
    %>
-<div class="col-md-6 col-lg-4 pizza-card">
-    <div class="thumbnail">
-        <img class="pizza-icon" src="<%= pizza.icon %>" alt="Pizza">
 
+<div class="col-md-6 col-lg-4">
+    <div class="thumbnail pizza-card">
         <% if(pizza.is_new) { %>
-        <span class="label label-danger">Нова</span>
+        <span class="label label-danger new">Нова</span>
         <% } else if(pizza.is_popular) {%>
-        <span class="label label-success">Популярна</span>
+        <span class="label label-success new">Популярна</span>
         <% } %>
-
-        <div class="caption">
-            <span class="title"><%= pizza.title %></span>
-            <div class="type"><%= pizza.type %></div>
-            <div class="description">
-                <%= getIngredientsArray(pizza).join(", ") %>
+        <img src="<%= pizza.icon %>">
+        <div class="about-pizza">
+            <div class="pizza-description">
+                <div class="name"><%= pizza.title %></div>
+                <div class="type"><%= pizza.type %></div>
+                <p><%= getIngredientsArray(pizza).join(", ") %></p>
+            </div>
+            <div class="pizza-options row">
+                <% if(pizza.has_small && !pizza.has_big) { %>
+                <div class="col-sm-12 small-pizza-info">
+                    <div class="pizza-icons">
+                        <div class="pizza-size">
+                            <img src="<%= pizza.icon_size %>">
+                            <span class="badge-pizza-size"><%= pizza.small_size.size %></span>
+                        </div>
+                        <div class="pizza-weight">
+                            <img src="<%= pizza.icon_weight %>">
+                            <span class="badge-pizza-weight"><%= pizza.small_size.weight %></span>
+                        </div>
+                    </div>
+                    <div class="pizza-price">
+                        <div class="amount-of-payment"><%= pizza.small_size.price %></div>
+                        <div class="currency"><%= pizza.small_size.price_currency %></div>
+                    </div>
+                    <span class="btn btn-warning buy-small">Купити</span>
+                </div>
+                <% } else if (pizza.has_small && pizza.has_big) {%>
+                <div class="col-sm-6 small-pizza-info">
+                    <div class="pizza-icons">
+                        <div class="pizza-size">
+                            <img src="<%= pizza.icon_size %>">
+                            <span class="badge-pizza-size"><%= pizza.small_size.size %></span>
+                        </div>
+                        <div class="pizza-weight">
+                            <img src="<%= pizza.icon_weight %>">
+                            <span class="badge-pizza-weight"><%= pizza.small_size.weight %></span>
+                        </div>
+                    </div>
+                    <div class="pizza-price">
+                        <div class="amount-of-payment"><%= pizza.small_size.price %></div>
+                        <div class="currency"><%= pizza.small_size.price_currency %></div>
+                    </div>
+                    <span class="btn btn-warning buy-small">Купити</span>
+                </div>
+                <div class="col-sm-6 big-pizza-info">
+                    <div class="pizza-icons">
+                        <div class="pizza-size">
+                            <img src="<%= pizza.icon_size %>">
+                            <span class="badge-pizza-size"><%= pizza.big_size.size %></span>
+                        </div>
+                        <div class="pizza-weight">
+                            <img src="<%= pizza.icon_weight %>">
+                            <span class="badge-pizza-weight"><%= pizza.big_size.weight %></span>
+                        </div>
+                    </div>
+                    <div class="pizza-price">
+                        <div class="amount-of-payment"><%= pizza.big_size.price %></div>
+                        <div class="currency"><%= pizza.big_size.price_currency %></div>
+                    </div>
+                    <span class="btn btn-warning buy-big">Купити</span>
+                </div>
+                <% } else if(pizza.has_big && !pizza.has_small) {%>
+                <div class="col-sm-12 big-pizza-info">
+                    <div class="pizza-icons">
+                        <div class="pizza-size">
+                            <img src="<%= pizza.icon_size %>">
+                            <span class="badge-pizza-size"><%= pizza.big_size.size %></span>
+                        </div>
+                        <div class="pizza-weight">
+                            <img src="<%= pizza.icon_weight %>">
+                            <span class="badge-pizza-weight"><%= pizza.big_size.weight %></span>
+                        </div>
+                    </div>
+                    <div class="pizza-price">
+                        <div class="amount-of-payment"><%= pizza.big_size.price %></div>
+                        <div class="currency"><%= pizza.big_size.price_currency %></div>
+                    </div>
+                    <span class="btn btn-warning buy-big">Купити</span>
+                </div>
+                <% } %>
             </div>
         </div>
-
-        <!-- Перед тим щоб показати кнопку необхідно переконатися, що піца має великий розмір -->
-        <button class="btn btn-primary buy-big">Купити велику</button>
     </div>
 </div>

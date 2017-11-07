@@ -15,7 +15,7 @@ function showPizzaList(list) {
     //Онволення однієї піци
     function showOnePizza(pizza) {
         var html_code = Templates.PizzaMenu_OneItem({pizza: pizza});
-
+        console.log()
         var $node = $(html_code);
 
         $node.find(".buy-big").click(function(){
@@ -35,12 +35,15 @@ function filterPizza(filter) {
     //Масив куди потраплять піци які треба показати
     var pizza_shown = [];
 
-    Pizza_List.forEach(function(pizza){
+    /*Pizza_List.forEach(function(pizza){
         //Якщо піка відповідає фільтру
+        if(pizza === filter){
+            pizza_shown.push(pizza);
+        }
         //pizza_shown.push(pizza);
 
         //TODO: зробити фільтри
-    });
+    });*/
 
     //Показати відфільтровані піци
     showPizzaList(pizza_shown);

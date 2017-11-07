@@ -55,7 +55,7 @@ module.exports = function(grunt) {
     //Список завданнь по замовчування
     grunt.registerTask('default',
         [
-            'browserify:pizza',
+            'browserify:pizza'
             //Інші завдання які необхідно виконати
         ]
     );
