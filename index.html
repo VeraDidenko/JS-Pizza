@@ -42,7 +42,6 @@
                     <li role="presentation">
                         <a>Вега</a>
                     </li>
-
                 </ul>
             </div>
         </div>
@@ -74,29 +73,25 @@
     <div class="center">
         <div id="cart"></div>
      </div>
-     <div class="top-template">
          <div class="top">
              <div class="pizza-orders">
                  <div class="left-part">
                      <span class="order-title">Замовлення</span>
-                     <span class="badge">8</span>
+                     <span class="badge" id="amount-of-orders">8</span>
                  </div>
                  <div class="right-part">
                      <span id="forClear" class="btn btn-default btn-xs clear ">Очистити замовлення</span>
                  </div>
              </div>
          </div>
-     </div>
      <div class="bottom">
          <span class="price-title">Сума замовлення</span>
          <div class="price-block">
-             <div class="right-panel-template">
-                <span class="price">1</span>
-                <span class="curr">грн</span>
-             </div>
+             <span class="price" id="total-price-b-panel">0</span>
+             <span class="curr">грн</span>
          </div>
          <div class="button">
-            <span class="btn btn-warning btn-lg order-button">Замовити</span>
+            <span class="btn btn-warning btn-lg order-button" id="button-order">Замовити</span>
          </div>
 
      </div>

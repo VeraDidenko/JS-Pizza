@@ -15,7 +15,6 @@ function showPizzaList(list) {
     //Онволення однієї піци
     function showOnePizza(pizza) {
         var html_code = Templates.PizzaMenu_OneItem({pizza: pizza});
-        console.log()
         var $node = $(html_code);
 
         $node.find(".buy-big").click(function(){

@@ -263,14 +263,6 @@ $(function(){
  */
     var Templates = require('../Templates');
     var Storage = require('./Storage');
-    var right_panel = $(".right-panel-template").html();
-    var $panel = $(right_panel);
-    var top_panel = $(".top-template").html();
-    var $top = $(top_panel);
-    var $total_amount = $panel.find(".price");
-    var total = 0;
-    $total_amount.text(total);
-
 //Перелік розмірів піци
     var PizzaSize = {
         Big: "big_size",
@@ -286,17 +278,12 @@ $(function(){
         //Додавання однієї піци в кошик покупок
 
         //Приклад реалізації, можна робити будь-яким іншим способом
-        if (Cart.indexOf(pizza) < 0){
             Cart.push({
                 pizza: pizza,
                 size: size,
                 quantity: 1
             });
 
-        }
-        else{
-           pizza.quantity += 1;
-        }
         //Оновити вміст кошика на сторінці
         updateCart();
     }
@@ -325,62 +312,67 @@ $(function(){
     }
     function clearCart(){
         Cart=[]
-            //return Cart.splice(0,Cart.length);
     }
-    $("#forClear").click(function(){
-        clearCart();
-        updateCart();
-    });
     function updateCart() {
         //Функція викликається при зміні вмісту кошика
         //Тут можна наприклад показати оновлений кошик на екрані та зберегти вміт кошика в Local Storage
         Storage.write("cart", Cart);
+        var total = 0;
+        var numberOfPizzas = 0;
         //Очищаємо старі піци в кошику
         $cart.html("");
-
+        $("#forClear").click(function(){
+            $("#total-price-b-panel").text(0);
+            clearCart();
+            updateCart();
+        });
         //Онволення однієї піци
         function showOnePizzaInCart(cart_item) {
             var html_code = Templates.PizzaCart_OneItem(cart_item);
-
             var pizza = cart_item.pizza;
             var size = cart_item.size;
-            total = pizza[size].price * cart_item.quantity;
-            $total_amount.text(total);
-
             var $node = $(html_code);
-
             $node.find(".plus-button").click(function () {
                 //Збільшуємо кількість замовлених піц
                 cart_item.quantity += 1;
-
                 //Оновлюємо відображення
                 updateCart();
             });
             $node.find(".minus-button").click(function () {
                 if (cart_item.quantity === 1) {
                     removeFromCart(cart_item);
+                    updateCart();
                 }
                 else {
-                    //Збільшуємо кількість замовлених піц
+                    //Зменшуємо кількість замовлених піц
                     cart_item.quantity -= 1;
-
                     //Оновлюємо відображення
                     updateCart();
                 }
 
             });
             $node.find(".remove-button").click(function () {
-                    removeFromCart(cart_item);
-                    //Оновлюємо відображення
-                    updateCart();
+                removeFromCart(cart_item);
+                //Оновлюємо відображення
+                updateCart();
 
             });
-
             $cart.append($node);
-            $panel.append($total_amount);
+            if(cart_item.quantity >= 1){
+                total = total + (pizza[size].price * cart_item.quantity);
+                numberOfPizzas = numberOfPizzas + cart_item.quantity;
+            }
+            $("#total-price-b-panel").text(total);
+            $("#amount-of-orders").text(numberOfPizzas);
         }
-
-        Cart.forEach(showOnePizzaInCart);
+            if(Cart.length === 0){
+                $("#total-price-b-panel").text(0);
+                $("#amount-of-orders").text(0);
+                $("#button-order").attr("disabled","disabled");
+            }else{
+                $("#button-order").removeAttr('disabled');
+                Cart.forEach(showOnePizzaInCart);
+            }
     }
 
     exports.removeFromCart = removeFromCart;
@@ -409,7 +401,6 @@ function showPizzaList(list) {
     //Онволення однієї піци
     function showOnePizza(pizza) {
         var html_code = Templates.PizzaMenu_OneItem({pizza: pizza});
-        console.log()
         var $node = $(html_code);
 
         $node.find(".buy-big").click(function(){
