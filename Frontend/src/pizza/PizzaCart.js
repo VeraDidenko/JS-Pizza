@@ -15,19 +15,31 @@
 //HTML едемент куди будуть додаватися піци
     var $cart = $("#cart");
     function addToCart(pizza, size) {
-        //Додавання однієї піци в кошик покупок
+        if(Cart.length > 0 && contains(pizza, size)){
 
-        //Приклад реалізації, можна робити будь-яким іншим способом
+        }else{
             Cart.push({
                 pizza: pizza,
                 size: size,
                 quantity: 1
             });
 
+        }
         //Оновити вміст кошика на сторінці
         updateCart();
     }
-
+    function contains(pizza, size){
+        var yes = false;
+        Cart.forEach(function(pizza_cart){
+            if(pizza === pizza_cart.pizza) {
+                if (size === pizza_cart.size) {
+                    pizza_cart.quantity += 1;
+                    yes = true;
+                }
+            }
+        });
+        return yes;
+    }
     function removeFromCart(cart_item) {
         //Видалити піцу з кошика
         const index = Cart.indexOf(cart_item);
@@ -120,5 +132,7 @@
 
     exports.getPizzaInCart = getPizzaInCart;
     exports.initialiseCart = initialiseCart;
+
+    exports.updateCart = updateCart;
 
     exports.PizzaSize = PizzaSize;

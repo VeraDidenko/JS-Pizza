@@ -18,29 +18,29 @@
         <div class="pizza-menu ">
             <div class="all-pizza-title hidden-xs">
                 <h2>
-                    <span class="all-title">Усі піци</span>
-                    <span class="badge">8</span>
+                    <span class="all-title" id="all-pizzas">Усі піци</span>
+                    <span class="badge" id="num">8</span>
                 </h2>
             </div>
             <div class="type-of-pizza hidden-xs">
                 <ul class="nav nav-pills pizzas">
-                    <li role="presentation" class="active">
-                        <a>Усі</a>
+                    <li role="presentation" class="active" id="filter1">
+                        <a href="#">Усі</a>
                     </li>
-                    <li role="presentation">
-                        <a>М'ясні</a>
+                    <li role="presentation" id="filter2">
+                        <a href="#">М'ясні</a>
                     </li>
-                    <li role="presentation">
-                        <a>З ананасами</a>
+                    <li role="presentation" id="filter3">
+                        <a href="#">З ананасами</a>
                     </li>
-                    <li role="presentation">
-                        <a>З грибами</a>
+                    <li role="presentation" id="filter4">
+                        <a href="#">З грибами</a>
                     </li>
-                    <li role="presentation">
-                        <a>З морепродуктами</a>
+                    <li role="presentation" id="filter5">
+                        <a href="#">З морепродуктами</a>
                     </li>
-                    <li role="presentation">
-                        <a>Вега</a>
+                    <li role="presentation" id="filter6">
+                        <a href="#">Вега</a>
                     </li>
                 </ul>
             </div>
@@ -75,13 +75,9 @@
      </div>
          <div class="top">
              <div class="pizza-orders">
-                 <div class="left-part">
-                     <span class="order-title">Замовлення</span>
-                     <span class="badge" id="amount-of-orders">8</span>
-                 </div>
-                 <div class="right-part">
-                     <span id="forClear" class="btn btn-default btn-xs clear ">Очистити замовлення</span>
-                 </div>
+                 <span class="order-title">Замовлення</span>
+                 <span class="badge" id="amount-of-orders">8</span>
+                 <span  class="clear" id="forClear">Очистити замовлення </span>
              </div>
          </div>
      <div class="bottom">

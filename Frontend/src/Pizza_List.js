@@ -33,7 +33,12 @@ var pizza_info = [
         is_new:true,
         is_popular:true,
         has_big:true,
-        has_small:true
+        has_small:true,
+        is_ocean: false,
+        is_meat: true,
+        is_pineapple: true,
+        is_vegetarian: false,
+        is_mushroom: false
 
     },
     {
@@ -64,7 +69,13 @@ var pizza_info = [
         },
         is_popular:true,
         has_big:true,
-        has_small:true
+        has_small:true,
+        is_ocean: false,
+        is_meat: true,
+        is_pineapple: false,
+        is_vegetarian: false,
+        is_mushroom: true
+
     },
     {
         id:3,
@@ -93,7 +104,12 @@ var pizza_info = [
             price_currency:'грн'
         },
         has_big:true,
-        has_small:true
+        has_small:true,
+        is_ocean: false,
+        is_meat: true,
+        is_pineapple: true,
+        is_vegetarian: false,
+        is_mushroom: false
     },
     {
         id:4,
@@ -122,7 +138,12 @@ var pizza_info = [
             price_currency:'грн'
         },
         has_big:true,
-        has_small:true
+        has_small:true,
+        is_ocean: false,
+        is_meat: true,
+        is_pineapple: false,
+        is_vegetarian: false,
+        is_mushroom: true
     },
     {
         id:17,
@@ -144,7 +165,12 @@ var pizza_info = [
             price_currency:'грн'
         },
         has_big:false,
-        has_small:true
+        has_small:true,
+        is_ocean: false,
+        is_meat: false,
+        is_pineapple: false,
+        is_vegetarian: true,
+        is_mushroom: false
     },
     {
         id:43,
@@ -174,7 +200,12 @@ var pizza_info = [
             price_currency:'грн'
         },
         has_big:true,
-        has_small:true
+        has_small:true,
+        is_ocean: false,
+        is_meat: true,
+        is_pineapple: true,
+        is_vegetarian: false,
+        is_mushroom: true
     },
     {
         id:90,
@@ -196,7 +227,12 @@ var pizza_info = [
             price_currency:'грн'
         },
         has_big:true,
-        has_small:false
+        has_small:false,
+        is_ocean: true,
+        is_meat: false,
+        is_pineapple: false,
+        is_vegetarian: false,
+        is_mushroom: false
     },
     {
         id:6,
@@ -224,7 +260,12 @@ var pizza_info = [
             price_currency:'грн'
         },
         has_big:true,
-        has_small:true
+        has_small:true,
+        is_ocean: true,
+        is_meat: false,
+        is_pineapple: false,
+        is_vegetarian: false,
+        is_mushroom: false
     }
 ];
 
