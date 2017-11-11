@@ -419,10 +419,13 @@ $(function(){
             $("#amount-of-orders").text(numberOfPizzas);
         }
             if(Cart.length === 0){
-                $("#total-price-b-panel").text(0);
+                $("#emptyFridge").show();
                 $("#amount-of-orders").text(0);
+                $("#toHide").hide();
                 $("#button-order").attr("disabled","disabled");
             }else{
+                $("#emptyFridge").hide();
+                $("#toHide").show();
                 $("#button-order").removeAttr('disabled');
                 Cart.forEach(showOnePizzaInCart);
             }

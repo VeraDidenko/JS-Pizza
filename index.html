@@ -71,7 +71,12 @@
 </div>
     <div class="right-panel">
     <div class="center">
-        <div id="cart"></div>
+        <div class="message" id="emptyFridge">
+            <div> Пусто в холодильнику?</div>
+            <div> Замовте піцу!</div>
+        </div>
+        <div id="cart">
+        </div>
      </div>
          <div class="top">
              <div class="pizza-orders">
@@ -81,10 +86,12 @@
              </div>
          </div>
      <div class="bottom">
+         <div class="template" id="toHide">
          <span class="price-title">Сума замовлення</span>
          <div class="price-block">
              <span class="price" id="total-price-b-panel">0</span>
              <span class="curr">грн</span>
+         </div>
          </div>
          <div class="button">
             <span class="btn btn-warning btn-lg order-button" id="button-order">Замовити</span>
