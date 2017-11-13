@@ -1,0 +1,106 @@
+<% include common/header.ejs %>
+<body>
+<div>
+    <div class="top-panel">
+        <div class="top-part-of-top-panel">
+            <div class="phone-number hidden-xs">(044) 222 5 222</div>
+            <div class="phone-number-small hidden-sm hidden-md hidden-lg">(044) 222 5 222</div>
+            <div class="schedule hidden-xs hidden-sm">24 години/ 7 днів на тиждень</div>
+            <div class="free-pizza-delivery hidden-xs hidden-sm hidden-md">Безкоштовна доставка піци</div>
+            <span class="btn btn-warning hidden-xs enter">Ввійти</span>
+        </div>
+        <div class="bottom-part-of-top-panel">
+            <span class="btn btn-warning hidden-sm hidden-md hidden-lg enter">Ввійти</span>
+            <span class="btn btn-link link-pizza hidden-xs">Піца</span>
+        </div>
+    </div>
+    <div class="my-pizza">
+        <div class="order-container">
+            <h3>1.Контактні дані</h3>
+             <div class="row fill-out-form">
+                <div class="col-md-7">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Ім'я</label>
+                            <div class="col-sm-10">
+                                <input class="form-control" id="focusedInput1" type="text" placeholder="Прізвище Ім'я">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Телефон</label>
+                            <div class="col-sm-10">
+                                <input class="form-control" id="focusedInput2" type="text" placeholder="+380508944034">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Адреса</label>
+                            <div class="col-sm-10">
+                                <input class="form-control" id="focusedInput3" type="text" placeholder="Київ, вул. Спаська, 2">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-md-5">
+                    <div class="bs-callout bs-callout-warning">
+                     <h4>Інформація про замовлення</h4>
+                     <p><span style="font-weight: bold"> Приблизний час доставки:</span>
+                         <span>невідомий</span></p>
+                     <p><span style="font-weight: bold"> Адреса доставки:</span>
+                         <span> невідома</span></p>
+
+                 </div>
+                </div>
+            </div>
+        </div>
+        <div class="explanation-message">
+                <p>
+                    Pizza.22 - практичний проект в межах курсу JavaScript в Києво-Могилянській Академії
+                </p>
+                <p>
+                    Доставка піци не здійснюється
+                </p>
+            </div>
+    </div>
+    <div class="right-panel">
+        <div class="center">
+            <div class="message" id="emptyFridge">
+                <div> Пусто в холодильнику?</div>
+                <div> Замовте піцу!</div>
+            </div>
+            <div id="cart">
+            </div>
+        </div>
+        <div class="top">
+            <div class="pizza-orders">
+                <span class="order-title">Замовлення</span>
+                <span class="badge" id="amount-of-orders">8</span>
+                <span  class="clear" id="forClear">Очистити замовлення </span>
+            </div>
+        </div>
+        <div class="bottom">
+            <div class="template" id="toHide">
+                <span class="price-title">Сума замовлення</span>
+                <div class="price-block">
+                    <span class="price" id="total-price-b-panel">0</span>
+                    <span class="curr">грн</span>
+                </div>
+            </div>
+            <div class="button">
+                <button class="btn btn-default btn-lg order-button" id="button-order" onclick="location.href='/'" >Редагувати замовлення</button>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+<div class="page-icon">
+    <img src="assets/images/page-icon.svg" class="page-icon-bottom">
+    <div class="pizza-word">PIZZA</div>
+    <div class="KMA-word">KMA</div>
+</div>
+<div class="discount">
+    <img src="assets/images/discount.svg" class="discount-top">
+    <div class="discount-message">ЦЬОГО ТИЖНЯ НА ВСЕ</div>
+    <div class="percent-discount">-20%</div>
+</div>
+<% include common/footer.ejs %>

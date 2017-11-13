@@ -1,17 +1,5 @@
-<!DOCTYPE html>
-<html>
-<head lang="en">
-    <meta charset="UTF-8">
-    <title>Pizza</title>
+<% include common/header.ejs %>
 
-    <!-- Bootsrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-
-    <!-- LESS основний файл -->
-    <link rel="stylesheet/less" type="text/css" href="assets/less/main.less" />
-    <!-- LESS JavaScript компілятор -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/less.js/2.5.3/less.min.js"></script>
-</head>
 <body>
 <div class="my-pizza">
     <div class="pizza-container">
@@ -69,7 +57,7 @@
         <span class="btn btn-link link-pizza hidden-xs">Піца</span>
     </div>
 </div>
-    <div class="right-panel">
+<div class="right-panel">
     <div class="center">
         <div class="message" id="emptyFridge">
             <div> Пусто в холодильнику?</div>
@@ -77,47 +65,36 @@
         </div>
         <div id="cart">
         </div>
-     </div>
-         <div class="top">
-             <div class="pizza-orders">
-                 <span class="order-title">Замовлення</span>
-                 <span class="badge" id="amount-of-orders">8</span>
-                 <span  class="clear" id="forClear">Очистити замовлення </span>
-             </div>
-         </div>
-     <div class="bottom">
-         <div class="template" id="toHide">
-         <span class="price-title">Сума замовлення</span>
-         <div class="price-block">
-             <span class="price" id="total-price-b-panel">0</span>
-             <span class="curr">грн</span>
-         </div>
-         </div>
-         <div class="button">
-            <button class="btn btn-warning btn-lg order-button" id="button-order">Замовити</button>
-         </div>
+    </div>
+    <div class="top">
+        <div class="pizza-orders">
+            <span class="order-title">Замовлення</span>
+            <span class="badge" id="amount-of-orders">8</span>
+            <span  class="clear" id="forClear">Очистити замовлення </span>
+        </div>
+    </div>
+    <div class="bottom">
+        <div class="template" id="toHide">
+            <span class="price-title">Сума замовлення</span>
+            <div class="price-block">
+                <span class="price" id="total-price-b-panel">0</span>
+                <span class="curr">грн</span>
+            </div>
+        </div>
+        <div class="button">
+            <button class="btn btn-warning btn-lg order-button"  id="button-order" onclick="location.href='/order.html'">Замовити</button>
+        </div>
+    </div>
 
-     </div>
-
- </div>
- <div class="page-icon">
-     <img src="Frontend/www/assets/images/page-icon.svg" class="page-icon-bottom">
-     <div class="pizza-word">PIZZA</div>
-     <div class="KMA-word">KMA</div>
- </div>
- <div class="discount">
-     <img src="Frontend/www/assets/images/discount.svg" class="discount-top">
-     <div class="discount-message">ЦЬОГО ТИЖНЯ НА ВСЕ</div>
-     <div class="percent-discount">-20%</div>
- </div>
-
- <!-- jQuery JavaScript -->
-<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
-
-<!--Bootsrap JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-
-<!--Own JavaScript -->
-<script type="text/javascript" src="assets/js/main.js"></script>
-</body>
-</html>
+</div>
+<div class="page-icon">
+    <img src="assets/images/page-icon.svg" class="page-icon-bottom">
+    <div class="pizza-word">PIZZA</div>
+    <div class="KMA-word">KMA</div>
+</div>
+<div class="discount">
+    <img src="assets/images/discount.svg" class="discount-top">
+    <div class="discount-message">ЦЬОГО ТИЖНЯ НА ВСЕ</div>
+    <div class="percent-discount">-20%</div>
+</div>
+<% include common/footer.ejs %>

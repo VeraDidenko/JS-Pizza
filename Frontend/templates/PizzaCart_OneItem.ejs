@@ -13,16 +13,22 @@
         </div>
         <div class="buttons-toolbar">
             <span class="badge-price-of-pizza"><%= pizza[size].price %><%= pizza[size].price_currency %></span>
-            <span class="btn btn-danger btn-sm minus-button">
-                        <span class="glyphicon glyphicon-minus"></span>
-                    </span>
-            <span class="badge-number-of-pizzas"><%= quantity %></span>
-            <span class="btn btn-success btn-sm plus-button">
-                        <span class="glyphicon glyphicon-plus"></span>
-                    </span>
-            <span class="btn btn-default btn-sm remove-button">
-                        <span class="glyphicon glyphicon-remove"></span>
-                    </span>
+            <span class="for-order-page" style="display: none" id="order-page">
+                <span class="badge-amount-of-ordered-pizzas">23</span>
+                <span class="badge-name-of-pizza">піци</span>
+            </span>
+            <span class="buttons-labels" id="hide-buttons">
+                <span class="btn btn-danger btn-sm minus-button" id="1">
+                            <span class="glyphicon glyphicon-minus"></span>
+                        </span>
+                <span class="badge-number-of-pizzas" id="2"><%= quantity %></span>
+                <span class="btn btn-success btn-sm plus-button"id="3">
+                            <span class="glyphicon glyphicon-plus"></span>
+                        </span>
+                <span class="btn btn-default btn-sm remove-button" id="4">
+                            <span class="glyphicon glyphicon-remove"></span>
+                        </span>
+            </span>
         </div>
     </div>
     <div class="pizza-image">
