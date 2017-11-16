@@ -20,22 +20,25 @@
              <div class="row fill-out-form">
                 <div class="col-md-7">
                     <form class="form-horizontal">
-                        <div class="form-group">
+                        <div class="form-group has-feedback name-user">
                             <label class="col-sm-2 control-label">Ім'я</label>
                             <div class="col-sm-10">
-                                <input class="form-control" id="focusedInput1" type="text" placeholder="Прізвище Ім'я">
+                                <input class="form-control"  id="focusedInput1" type="text" placeholder="Прізвище Ім'я">
+                                <span class="hint-name" style="display: none">Введіть тільки власне ім’я, без цифр</span>
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group has-feedback phone-user">
                             <label class="col-sm-2 control-label">Телефон</label>
                             <div class="col-sm-10">
                                 <input class="form-control" id="focusedInput2" type="text" placeholder="+380508944034">
+                                <span class="hint-phone" style="display: none">Введіть номер телефону у форматі +380 або почніть з 0</span>
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group has-feedback address-user">
                             <label class="col-sm-2 control-label">Адреса</label>
                             <div class="col-sm-10">
                                 <input class="form-control" id="focusedInput3" type="text" placeholder="Київ, вул. Спаська, 2">
+                                <span class="hint-address" style="display: none">Введіть адресу доставки піци</span>
                             </div>
                         </div>
                     </form>
@@ -48,6 +51,11 @@
                      <p><span style="font-weight: bold"> Адреса доставки:</span>
                          <span> невідома</span></p>
 
+                 </div>
+                 <div class="col-xs-2 next">
+                     <button class="btn btn-warning btn-md button-next">Далі
+                         <span class="glyphicon glyphicon-chevron-right"></span>
+                     </button>
                  </div>
                 </div>
             </div>
@@ -86,7 +94,7 @@
                 </div>
             </div>
             <div class="button">
-                <button class="btn btn-default btn-lg order-button" id="button-order" onclick="location.href='/'" >Редагувати замовлення</button>
+                <button class="btn btn-default btn-lg order-button" id="button-change" onclick="location.href='/'" >Редагувати замовлення</button>
             </div>
 
         </div>
