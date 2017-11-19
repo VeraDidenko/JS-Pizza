@@ -41,6 +41,61 @@ exports.createOrder = function(order_info, callback) {
 };
 
 },{}],2:[function(require,module,exports){
+function geocodeLatLng(latlng,	 callback){
+//Модуль за роботу з адресою
+    var geocoder = new google.maps.Geocoder();
+    geocoder.geocode({'location': latlng},	function(results, status){
+        if (status === google.maps.GeocoderStatus.OK &&	results[1])	{
+            var adress = results[1].formatted_address;
+            callback(null,adress);
+        }	else	{
+            callback(new Error("Can't find adress"));
+        }
+    });
+}
+
+function initialize(){
+//Тут починаємо працювати з картою
+    var mapProp ={
+        center:	new	google.maps.LatLng(50.464379,30.519131),
+        zoom: 13
+    };
+    var html_element =	document.getElementById("googleMap");
+    var map	=	new	google.maps.Map(html_element, mapProp);
+
+    var old_marker = null;
+//Карта створена і показана
+    google.maps.event.addListener(map, 'click',function(me){
+            var coordinates	= me.latLng;
+
+            if(old_marker){
+                old_marker.setMap(null);
+                old_marker = null;
+            }
+            old_marker = new google.maps.Marker({
+                position: coordinates,
+//map - це змінна карти створена за допомогою new google.maps.Map(...)
+                map: map,
+                icon: "assets/images/home-icon.png"
+            });
+        geocodeLatLng(coordinates, function(err, address){
+            if(err){
+                $("#focusedInput3").val("Not found");
+                $("#address").text("Not found");
+            }else{
+                $("#focusedInput3").val(address);
+                $("#address").text(address);
+            }
+        })
+//coordinates	- такий самий об’єкт як створений new google.maps.LatLng(...)
+   });
+}
+//Коли сторінка завантажилась
+google.maps.event.addDomListener(window,'load',	initialize);
+
+
+
+},{}],3:[function(require,module,exports){
 /**
  * Created by chaika on 02.02.16.
  */
@@ -55,7 +110,7 @@ exports.PizzaCart_OneItem = ejs.compile("<div class=\"chosen-pizza\">\n    <div 
 exports.PizzaCart_OnePizzaOrdered = ejs.compile("<div class=\"chosen-pizza\">\n    <div class=\"pizza-info\">\n        <% if(size == 'big_size') { %>\n        <div class=\"chosen-pizza-name\"><%= pizza.title %> (Велика) </div>\n        <% } else {%>\n        <div class=\"chosen-pizza-name\"><%= pizza.title %> (Мала) </div>\n        <% } %>\n        <div class=\"icons\">\n            <img src=\"<%= pizza.icon_size %>\">\n            <span class=\"badge-size\"><%= pizza[size].size %></span>\n            <img src=\"<%= pizza.icon_weight %>\">\n            <span class=\"badge-weight\"><%= pizza[size].weight %></span>\n        </div>\n        <div class=\"buttons-toolbar\">\n            <span class=\"badge-price-of-pizza\"><%=  pizza[size].price*quantity %><%= pizza[size].price_currency %></span>\n            <span class=\"for-order-page\" id=\"order-page\">\n                <span class=\"badge-name-of-pizza\">піц:</span>\n            </span>\n            <span class=\"buttons-labels\">\n                <span class=\"badge-number-of-pizzas\" id=\"2\" style=\"padding-left: 1px\"><%= quantity %></span>\n            </span>\n        </div>\n        <div class=\"pizza-image\">\n            <img src=\"<%= pizza.icon_trans %>\">\n        </div>\n    </div>\n\n</div>");
 
 
-},{"ejs":9}],3:[function(require,module,exports){
+},{"ejs":10}],4:[function(require,module,exports){
 /**
  * Created by chaika on 25.01.16.
  */
@@ -88,18 +143,10 @@ $(function(){
                 alert("Order successfully sent!");
             })
         }else{
-            if($(".name-user").val("") && $(".phone-user").val("") && $(".address-user").val("")){
-                $(".form-group").addClass("has-error");
-                $(".hint-name").show();
-                $(".hint-phone").show();
-                $(".hint-address").show();
-            }
             alert("Please fill in the form");
-
         }
 
     });
-
     function returnName(){
         return $("#focusedInput1").val();
     }
@@ -111,58 +158,61 @@ $(function(){
     }
 
     function Valid(){
-       return $(".name-user").hasClass("has-success") && $(".phone-user").hasClass("has-success") && $(".address-user").hasClass("has-success");
+       return isValidName($("#focusedInput1").val()) && isValidPhone($("#focusedInput2").val()) && isValidAddress($("#focusedInput3").val());
     }
 
     $("#focusedInput1").keyup(function () {
         var name = $("#focusedInput1").val();
-        if(isValidName(name)){
-            $(".name-user").removeClass("has-error").addClass("has-success");
-            $(".hint-name").hide();
-        }else{
-            $(".name-user").removeClass("has-success").addClass("has-error");
-            $(".hint-name").show();
-        }
+        isValidName(name);
     });
 
     $("#focusedInput2").keyup(function () {
         var phone = $("#focusedInput2").val();
-        if(isValidPhone(phone)){
-            $(".phone-user").removeClass("has-error").addClass("has-success");
-            $(".hint-phone").hide();
-        }else{
-            $(".phone-user").removeClass("has-success").addClass("has-error");
-            $(".hint-phone").show();
-        }
+        isValidPhone(phone);
     });
 
     $("#focusedInput3").keyup(function () {
         var address = $("#focusedInput3").val();
-        if(isValidAddress(address)){
-            $(".address-user").removeClass("has-error").addClass("has-success");
-            $(".hint-address").hide();
-        }else{
-            $(".address-user").removeClass("has-success").addClass("has-error");
-            $(".hint-address").show();
-        }
+        isValidAddress(address);
     });
 
     function isValidName(name){
         var name1 = new RegExp(/^([A-Za-z]*)$/);
-        return (name.length >= 1 && name1.test(name));
+        if(name.length >= 1 && name1.test(name)){
+            $(".name-user").removeClass("has-error").addClass("has-success");
+            $(".hint-name").hide();
+            return true;
+        }else{
+            $(".name-user").removeClass("has-success").addClass("has-error");
+            $(".hint-name").show();
+            return false;
+        }
     }
 
     function isValidPhone(phone){
         var phoneNum1 = new RegExp(/^[+]?(38)?([0-9]{10})$/);
         var phoneNum2 = new RegExp(/^0?([0-9]{9})$/);
-        if(phone.length === 13 && phoneNum1.test(phone)){
+        if((phone.length === 13 && phoneNum1.test(phone)) || ((phone.length === 10 && phoneNum2.test(phone)))){
+            $(".phone-user").removeClass("has-error").addClass("has-success");
+            $(".hint-phone").hide();
             return true;
+        }else{
+            $(".phone-user").removeClass("has-success").addClass("has-error");
+            $(".hint-phone").show();
+            return false;
         }
-        return (phone.length === 10 && phoneNum2.test(phone));
     }
 
     function isValidAddress(name){
-        return (name.length >= 1);
+     if(name.length >= 1){
+        $(".address-user").removeClass("has-error").addClass("has-success");
+        $(".hint-address").hide();
+        return true;
+     }else {
+         $(".address-user").removeClass("has-success").addClass("has-error");
+         $(".hint-address").show();
+         return false;
+     }
     }
     exports.returnName = returnName;
     exports.returnPhone = returnPhone;
@@ -170,7 +220,9 @@ $(function(){
 
 });
 
-},{"./API":1,"./pizza/PizzaCart":4,"./pizza/PizzaMenu":5}],4:[function(require,module,exports){
+require("./GoogleMap");
+
+},{"./API":1,"./GoogleMap":2,"./pizza/PizzaCart":5,"./pizza/PizzaMenu":6}],5:[function(require,module,exports){
 /**
  * Created by chaika on 02.02.16.
  */
@@ -319,11 +371,13 @@ $(function(){
         var name = Input.returnName();
         var phone = Input.returnPhone();
         var address = Input.returnAddress();
+        var total = $("#total-price-b-panel").text();
         API.createOrder({
             name: name,
             phone: phone,
             address: address,
-            order: Cart
+            order: Cart,
+            total_price: total
         },function(err, res){
             if(err) {
                 return callback(err);
@@ -341,7 +395,7 @@ $(function(){
 
     exports.PizzaSize = PizzaSize;
     exports.createOrder = createOrder;
-},{"../API":1,"../Templates":2,"../main":3,"./Storage":6}],5:[function(require,module,exports){
+},{"../API":1,"../Templates":3,"../main":4,"./Storage":7}],6:[function(require,module,exports){
 /**
  * Created by chaika on 02.02.16.
  */
@@ -475,7 +529,7 @@ function initialiseMenu() {
 
 exports.filterPizza = filterPizza;
 exports.initialiseMenu = initialiseMenu;
-},{"../API":1,"../Templates":2,"./PizzaCart":4}],6:[function(require,module,exports){
+},{"../API":1,"../Templates":3,"./PizzaCart":5}],7:[function(require,module,exports){
 var basil = require('basil.js');
 
 basil = new basil();
@@ -487,7 +541,7 @@ exports.write = function(key, value) {
 exports.read = function(key){
     return basil.get(key);
 };
-},{"basil.js":7}],7:[function(require,module,exports){
+},{"basil.js":8}],8:[function(require,module,exports){
 (function () {
 	// Basil
 	var Basil = function (options) {
@@ -875,9 +929,9 @@ exports.read = function(key){
 
 })();
 
-},{}],8:[function(require,module,exports){
-
 },{}],9:[function(require,module,exports){
+
+},{}],10:[function(require,module,exports){
 /*
  * EJS Embedded JavaScript templates
  * Copyright 2112 Matthew Eernisse (mde@fleegix.org)
@@ -1745,7 +1799,7 @@ if (typeof window != 'undefined') {
   window.ejs = exports;
 }
 
-},{"../package.json":11,"./utils":10,"fs":8,"path":12}],10:[function(require,module,exports){
+},{"../package.json":12,"./utils":11,"fs":9,"path":13}],11:[function(require,module,exports){
 /*
  * EJS Embedded JavaScript templates
  * Copyright 2112 Matthew Eernisse (mde@fleegix.org)
@@ -1911,7 +1965,7 @@ exports.cache = {
   }
 };
 
-},{}],11:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 module.exports={
   "_from": "ejs@^2.4.1",
   "_id": "ejs@2.5.7",
@@ -1992,7 +2046,7 @@ module.exports={
   "version": "2.5.7"
 }
 
-},{}],12:[function(require,module,exports){
+},{}],13:[function(require,module,exports){
 (function (process){
 // Copyright Joyent, Inc. and other Node contributors.
 //
@@ -2220,7 +2274,7 @@ var substr = 'ab'.substr(-1) === 'b'
 ;
 
 }).call(this,require('_process'))
-},{"_process":13}],13:[function(require,module,exports){
+},{"_process":14}],14:[function(require,module,exports){
 // shim for using process in browser
 var process = module.exports = {};
 
@@ -2406,4 +2460,4 @@ process.chdir = function (dir) {
 };
 process.umask = function() { return 0; };
 
-},{}]},{},[3]);
+},{}]},{},[4]);

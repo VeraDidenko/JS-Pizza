@@ -30,14 +30,7 @@ $(function(){
                 alert("Order successfully sent!");
             })
         }else{
-            if($(".name-user").val("") && $(".phone-user").val("") && $(".address-user").val("")){
-                $(".form-group").addClass("has-error");
-                $(".hint-name").show();
-                $(".hint-phone").show();
-                $(".hint-address").show();
-            }
             alert("Please fill in the form");
-
         }
 
     });
@@ -52,61 +45,66 @@ $(function(){
     }
 
     function Valid(){
-       return $(".name-user").hasClass("has-success") && $(".phone-user").hasClass("has-success") && $(".address-user").hasClass("has-success");
+       return isValidName($("#focusedInput1").val()) && isValidPhone($("#focusedInput2").val()) && isValidAddress($("#focusedInput3").val());
     }
 
     $("#focusedInput1").keyup(function () {
         var name = $("#focusedInput1").val();
-        if(isValidName(name)){
-            $(".name-user").removeClass("has-error").addClass("has-success");
-            $(".hint-name").hide();
-        }else{
-            $(".name-user").removeClass("has-success").addClass("has-error");
-            $(".hint-name").show();
-        }
+        isValidName(name);
     });
 
     $("#focusedInput2").keyup(function () {
         var phone = $("#focusedInput2").val();
-        if(isValidPhone(phone)){
-            $(".phone-user").removeClass("has-error").addClass("has-success");
-            $(".hint-phone").hide();
-        }else{
-            $(".phone-user").removeClass("has-success").addClass("has-error");
-            $(".hint-phone").show();
-        }
+        isValidPhone(phone);
     });
 
     $("#focusedInput3").keyup(function () {
         var address = $("#focusedInput3").val();
-        if(isValidAddress(address)){
-            $(".address-user").removeClass("has-error").addClass("has-success");
-            $(".hint-address").hide();
-        }else{
-            $(".address-user").removeClass("has-success").addClass("has-error");
-            $(".hint-address").show();
-        }
+        isValidAddress(address);
     });
 
     function isValidName(name){
         var name1 = new RegExp(/^([A-Za-z]*)$/);
-        return (name.length >= 1 && name1.test(name));
+        if(name.length >= 1 && name1.test(name)){
+            $(".name-user").removeClass("has-error").addClass("has-success");
+            $(".hint-name").hide();
+            return true;
+        }else{
+            $(".name-user").removeClass("has-success").addClass("has-error");
+            $(".hint-name").show();
+            return false;
+        }
     }
 
     function isValidPhone(phone){
         var phoneNum1 = new RegExp(/^[+]?(38)?([0-9]{10})$/);
         var phoneNum2 = new RegExp(/^0?([0-9]{9})$/);
-        if(phone.length === 13 && phoneNum1.test(phone)){
+        if((phone.length === 13 && phoneNum1.test(phone)) || ((phone.length === 10 && phoneNum2.test(phone)))){
+            $(".phone-user").removeClass("has-error").addClass("has-success");
+            $(".hint-phone").hide();
             return true;
+        }else{
+            $(".phone-user").removeClass("has-success").addClass("has-error");
+            $(".hint-phone").show();
+            return false;
         }
-        return (phone.length === 10 && phoneNum2.test(phone));
     }
 
     function isValidAddress(name){
-        return (name.length >= 1);
+     if(name.length >= 1){
+        $(".address-user").removeClass("has-error").addClass("has-success");
+        $(".hint-address").hide();
+        return true;
+     }else {
+         $(".address-user").removeClass("has-success").addClass("has-error");
+         $(".hint-address").show();
+         return false;
+     }
     }
     exports.returnName = returnName;
     exports.returnPhone = returnPhone;
     exports.returnAddress = returnAddress;
 
 });
+
+require("./GoogleMap");

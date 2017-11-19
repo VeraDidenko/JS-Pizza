@@ -146,11 +146,13 @@
         var name = Input.returnName();
         var phone = Input.returnPhone();
         var address = Input.returnAddress();
+        var total = $("#total-price-b-panel").text();
         API.createOrder({
             name: name,
             phone: phone,
             address: address,
-            order: Cart
+            order: Cart,
+            total_price: total
         },function(err, res){
             if(err) {
                 return callback(err);
