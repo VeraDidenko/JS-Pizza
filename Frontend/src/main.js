@@ -12,7 +12,6 @@ $(function(){
 
     PizzaCart.initialiseCart();
     PizzaMenu.initialiseMenu();
-    hideShow();
 
 
     $("#button-order").click(function(){
@@ -24,19 +23,24 @@ $(function(){
     });
     $(".button-next").click(function(){
         if (Valid()){
-            PizzaCart.createOrder(function (err,res){
+            PizzaCart.createOrder(function (err){
                 if(err){
                     alert("Can't create order");
                 }
-                alert("Order successfully sent!"+res);
+                alert("Order successfully sent!");
             })
         }else{
+            if($(".name-user").val("") && $(".phone-user").val("") && $(".address-user").val("")){
+                $(".form-group").addClass("has-error");
+                $(".hint-name").show();
+                $(".hint-phone").show();
+                $(".hint-address").show();
+            }
             alert("Please fill in the form");
 
         }
 
     });
-
     function returnName(){
         return $("#focusedInput1").val();
     }
@@ -49,25 +53,6 @@ $(function(){
 
     function Valid(){
        return $(".name-user").hasClass("has-success") && $(".phone-user").hasClass("has-success") && $(".address-user").hasClass("has-success");
-    }
-
-    function hideShow(){
-        if(document.location.href === "http://localhost:5050/order.html"){
-            var amount = $("#2").val();
-            if(amount === 1){
-                $(".badge-name-of-pizza").text("піца");
-            }else if(amount % 10 === 2 || amount % 10 === 3 || amount % 10 === 4 ){
-                $(".badge-name-of-pizza").text("піци");
-            }else{
-                $(".badge-name-of-pizza").text("піц");
-            }
-            $(".badge-amount-of-ordered-pizzas").text(amount);
-            $("#hide-buttons").hide();
-            $("#order-page").show();
-        }else{
-            $("#hide-buttons").show();
-            $("#order-page").hide();
-        }
     }
 
     $("#focusedInput1").keyup(function () {
@@ -104,7 +89,8 @@ $(function(){
     });
 
     function isValidName(name){
-        return (name.length >= 1);
+        var name1 = new RegExp(/^([A-Za-z]*)$/);
+        return (name.length >= 1 && name1.test(name));
     }
 
     function isValidPhone(phone){

@@ -12,18 +12,12 @@
             <span class="badge-weight"><%= pizza[size].weight %></span>
         </div>
         <div class="buttons-toolbar">
-            <span class="badge-price-of-pizza"><%= pizza[size].price*quantity %><%= pizza[size].price_currency %></span>
+            <span class="badge-price-of-pizza"><%=  pizza[size].price*quantity %><%= pizza[size].price_currency %></span>
+            <span class="for-order-page" id="order-page">
+                <span class="badge-name-of-pizza">піц:</span>
+            </span>
             <span class="buttons-labels">
-                <span class="btn btn-danger btn-sm minus-button" id="1">
-                            <span class="glyphicon glyphicon-minus"></span>
-                        </span>
-                <span class="badge-number-of-pizzas" id="2"><%= quantity %></span>
-                <span class="btn btn-success btn-sm plus-button"id="3">
-                            <span class="glyphicon glyphicon-plus"></span>
-                        </span>
-                <span class="btn btn-default btn-sm remove-button" id="4">
-                            <span class="glyphicon glyphicon-remove"></span>
-                        </span>
+                <span class="badge-number-of-pizzas" id="2" style="padding-left: 1px"><%= quantity %></span>
             </span>
         </div>
         <div class="pizza-image">
