@@ -45,7 +45,7 @@ $(function(){
     }
 
     function Valid(){
-       return isValidName($("#focusedInput1").val()) && isValidPhone($("#focusedInput2").val()) && isValidAddress($("#focusedInput3").val());
+       return isValidName($("#focusedInput1").val()) && isValidPhone($("#focusedInput2").val()) && $(".address-user").hasClass("has-success");
     }
 
     $("#focusedInput1").keyup(function () {
@@ -64,7 +64,7 @@ $(function(){
     });
 
     function isValidName(name){
-        var name1 = new RegExp(/^([A-Za-z]*)$/);
+        var name1 = new RegExp(/^([A-ZА-Яa-zа-я]*)$/);
         if(name.length >= 1 && name1.test(name)){
             $(".name-user").removeClass("has-error").addClass("has-success");
             $(".hint-name").hide();

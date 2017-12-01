@@ -33,7 +33,7 @@
     function contains(pizza, size){
         var yes = false;
         Cart.forEach(function(pizza_cart){
-            if(pizza === pizza_cart.pizza) {
+            if(pizza.id === pizza_cart.pizza.id) {
                 if (size === pizza_cart.size) {
                     pizza_cart.quantity += 1;
                     yes = true;
