@@ -224,11 +224,25 @@ $(function(){
     });
     $(".button-next").click(function(){
         if (Valid()){
-            PizzaCart.createOrder(function (err){
+            PizzaCart.createOrder(function (err, data){
                 if(err){
                     alert("Can't create order");
                 }
-                alert("Order successfully sent!");
+                alert("Information for order successfully sent!");
+                LiqPayCheckout.init({
+                    data: data.data,
+                    signature: data.signature,
+                    embedTo: "#liqpay",
+                    mode: "popup"
+                }).on("liqpay.callback", function(data){
+                    console.log(data.status);
+                    console.log(data);
+                    alert("Order status: "+data.status);
+                }).on("liqpay.ready", function(data){
+
+                }).on("liqpay.close", function(data){
+
+                });
             })
         }else{
             alert("Please fill in the form");
@@ -265,7 +279,7 @@ $(function(){
     });
 
     function isValidName(name){
-        var name1 = new RegExp(/^([A-ZА-Яa-zа-я]*)$/);
+        var name1 = new RegExp(/^([A-ZА-Яa-zа-я]|\s[A-ZА-Яa-zа-я])+[A-ZА-Яa-zа-я]*$/);
         if(name.length >= 1 && name1.test(name)){
             $(".name-user").removeClass("has-error").addClass("has-success");
             $(".hint-name").hide();
